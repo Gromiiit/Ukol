@@ -7,10 +7,10 @@ using System.Xml.Serialization;
 
 namespace Notino.Homework.FormatConvertors
 {
-    public class XMLConverter : IFileConvert
+    public class XMLConvertor : IFileConvert
     {
         public XmlSerializer Serializer {get;}
-        public XMLConverter()
+        public XMLConvertor()
         {
         }
 

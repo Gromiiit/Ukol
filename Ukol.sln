@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormatConvertors", "FormatC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storages", "Storages\Storages.csproj", "{57BD6030-AC37-40AA-B8B9-53B39B750E6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertorsTest", "ConvertorsTest\ConvertorsTest.csproj", "{6BBE1791-2D2B-46E7-A68B-C4BC04A91903}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{57BD6030-AC37-40AA-B8B9-53B39B750E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57BD6030-AC37-40AA-B8B9-53B39B750E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57BD6030-AC37-40AA-B8B9-53B39B750E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BBE1791-2D2B-46E7-A68B-C4BC04A91903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BBE1791-2D2B-46E7-A68B-C4BC04A91903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BBE1791-2D2B-46E7-A68B-C4BC04A91903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BBE1791-2D2B-46E7-A68B-C4BC04A91903}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

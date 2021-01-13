@@ -22,7 +22,7 @@ namespace Notino.Homework.Storages
 
     public static class StreamFactory
     {
-        public static Stream GetStream(string path, Location type, bool read = true)
+        public static Stream GetStream(string path, Location type, CloudService cloud = CloudService.Dropbox, bool read = true)
         {
             switch (type)
             {
@@ -57,8 +57,8 @@ namespace Notino.Homework.Storages
                         throw new HttpRequestException(response.StatusCode.ToString());
                     }
                 case Location.Cloud:
-                    var cloud = GetCloud(CloudService.Dropbox);
-                    return read ? cloud.Download() : cloud.Upload();
+                    var cloudInstance = GetCloud(cloud);
+                    return read ? cloudInstance.Download() : cloudInstance.Upload();
                 default:
                     throw new NotImplementedException();
             }

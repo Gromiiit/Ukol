@@ -46,8 +46,8 @@
   <ItemGroup>
     <Compile Include="ConvertorFactory.cs" />
     <Compile Include="Convertors\IFileConvert.cs" />
-    <Compile Include="Convertors\JSONConverter.cs" />
-    <Compile Include="Convertors\XMLConverter.cs" />
+    <Compile Include="Convertors\JSONConvertor.cs" />
+    <Compile Include="Convertors\XMLConvertor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

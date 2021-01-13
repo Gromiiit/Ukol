@@ -10,14 +10,14 @@ namespace Notino.Homework.FormatConvertors
 
     public static class ConvertorFactory
     {
-        public static IFileConvert GetConverter(Format type)
+        public static IFileConvert GetConvertor(Format type)
         {
             switch (type)
             {
                 case Format.JSON:
-                    return new JSONConverter();
+                    return new JSONConvertor();
                 case Format.XML:
-                    return new XMLConverter();
+                    return new XMLConvertor();
                 default:
                     throw new NotImplementedException();
             }

@@ -6,11 +6,11 @@ using Newtonsoft.Json.Linq;
 
 namespace Notino.Homework.FormatConvertors
 {
-    public class JSONConverter : IFileConvert
+    public class JSONConvertor : IFileConvert
     {
         public JsonSerializer Serializer { get; }
         
-        public JSONConverter()
+        public JSONConvertor()
         {
             Serializer = new JsonSerializer();
         }
