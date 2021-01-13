@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using Notino.Homework.Storages.Clouds;
 
 namespace Notino.Homework.Storages
 {
@@ -11,6 +12,12 @@ namespace Notino.Homework.Storages
         FileSystem,
         Http,
         Cloud
+    }
+
+    public enum CloudService
+    {
+        Dropbox,
+        OneDrive
     }
 
     public static class StreamFactory
@@ -50,7 +57,21 @@ namespace Notino.Homework.Storages
                         throw new HttpRequestException(response.StatusCode.ToString());
                     }
                 case Location.Cloud:
-                    return null;
+                    var cloud = GetCloud(CloudService.Dropbox);
+                    return read ? cloud.Download() : cloud.Upload();
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private static ICloud GetCloud(CloudService type)
+        {
+            switch (type)
+            {
+                case CloudService.Dropbox:
+                    return new Clouds.Dropbox();
+                case CloudService.OneDrive:
+                    return new Clouds.OneDrive();
                 default:
                     throw new NotImplementedException();
             }
