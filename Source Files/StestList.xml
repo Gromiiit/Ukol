@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Document>
+    <Title>title0</Title>
+    <Text>text0</Text>
+  </Document>
+  <Document>
+    <Title>title0</Title>
+    <Text>text0</Text>
+  </Document>
+</ArrayOfDocument>
