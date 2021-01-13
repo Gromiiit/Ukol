@@ -19,7 +19,7 @@ namespace Notino.Homework.FormatConvertors
                 case Format.XML:
                     return new XMLConvertor();
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException("Converter is not implemeted for this file format");
             }
         }
     }
