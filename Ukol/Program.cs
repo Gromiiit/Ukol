@@ -13,10 +13,7 @@ namespace Notino.Homework
         public string Title { get; set; }
         public string Text { get; set; }
 
-        public Document()
-        {
-
-        }
+        public Document() { }
         public Document(SerializationInfo info, StreamingContext context)
         {
             Title = (string)info.GetValue("title", typeof(string));
@@ -35,72 +32,88 @@ namespace Notino.Homework
     }
 
     class Program
-    {        
-        static void Main(string[] args)
+    {
+        static string sourceFileNameXML = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\StestLists.xml");
+        static string targetFileNameJSON = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Output.json");
+
+        // static string sourceFileNameJSON = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\StestList.json");
+        // static string sourceFileNameXML = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\StestObject.xml");
+        // static string sourceFileNameJSON = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\StestObject.json");
+        // static string targetFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Test.txt");
+        // static string targetFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Test.txt");
+        static void Main(string[] args) // sourcePath, targetPath, sourceFormat, targetFormat, location, cloud
         {
-            var doc = new Document
+            //string[] args2 = { sourceFileNameXML, targetFileNameJSON, "xml", "json", "filesystem", "cloud" }; // example
+            string[] args2 = args;
+            Location location;
+            CloudService cloud;
+            Format rFormat, wFormat;
+
+            if (args2.Length < 4)
             {
-                Text = "text0",
-                Title = "title0"
-            };
-            var doc1 = new Document
-            {
-                Text = "text1",
-                Title = "title1"
-            };
-
-            var list = new List<Document>();
-            list.Add(doc);
-            list.Add(doc1);
-
-            var targetFileNameJ = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Ttest.json");
-            var targetFileNameX = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Ttest.xml");
-            var sourceFileNameJ = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Stest.json");
-            var sourceFileNameX = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Stest.xml");
-            var sourceHttpNameJ = @"http://echo.jsontest.com/Title/two/Text/two";
-
-            var JSONConv = ConvertorFactory.GetConverter(Format.JSON);
-            var XMLConv = ConvertorFactory.GetConverter(Format.XML);
-
-            var streamR = StreamFactory.GetStream(sourceFileNameX, Location.FileSystem);
-            var streamW = StreamFactory.GetStream(targetFileNameX, Location.FileSystem, false);
-
-            //var vals = JSONConv.Deserialize<Document>(new StreamReader(streamR));
-            //foreach(var v in vals)
-            //{
-            //    Console.WriteLine(v);
-            //}
-
-            //JSONConv.Serialize<Document>(doc, new StreamWriter(streamW));
-            //string s = JSONConv.Serialize<Document>(doc);
-
-            //var vals2 = JSONConv.Deserialize<Document>(s);
-            //foreach (var v in vals)
-            //{
-            //    Console.WriteLine("!" + v);
-            //}
-
-            var vals = XMLConv.Deserialize<Document>(new StreamReader(streamR));
-            foreach(var v in vals)
-            {
-                Console.WriteLine(v);
+                Console.WriteLine("Lack of parameters");
+                return;
             }
-            
-            XMLConv.Serialize<Document>(list, new StreamWriter(streamW));
-            var serialized = XMLConv.Serialize<Document>(list);
-            var obj = XMLConv.Serialize<Document>(doc);
-            Console.WriteLine(obj);
+            if (!Enum.TryParse(args2[2], true, out rFormat))
+            {
+                Console.WriteLine("Incorrect source format");
+                return;
+            }
+            if (!Enum.TryParse(args2[3], true, out wFormat))
+            {
+                Console.WriteLine("Incorrect target format");
+                return;
+            }
+            if (Enum.TryParse(args2[4], true, out location))
+            {
+                if (location == Location.Cloud && args2.Length > 2)
+                {
+                    if (!Enum.TryParse(args2[5], true, out cloud))
+                    {
+                        Console.WriteLine("Incorrect cloud");
+                        return;
+                    }
+                    return;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Incorrect location");
+                return;
+            }
 
-            var des = XMLConv.Deserialize<Document>(obj);
-            foreach(var d in des)
+            Stream rStream, wStream;
+            try
             {
-                Console.WriteLine(d);
+                rStream = StreamFactory.GetStream(args2[0], location);
+                wStream = StreamFactory.GetStream(args2[1], location, read: false);
             }
-            var desList = XMLConv.Deserialize<Document>(serialized);
-            foreach (var d in desList)
+            catch (ArgumentException argumentEx)
             {
-                Console.WriteLine(d);
+                Console.WriteLine("Incorrect path");
+                Console.WriteLine(argumentEx.Message);
+                return;
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+
+            IFileConvert rConvert, wConvert;
+            try
+            {
+                rConvert = ConvertorFactory.GetConvertor(rFormat);
+                wConvert = ConvertorFactory.GetConvertor(wFormat);
+            }
+            catch(NotImplementedException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+
+            object data = rConvert.Deserialize<Document>(new StreamReader(rStream));
+            wConvert.Serialize<Document>(data, new StreamWriter(wStream));
         }
     }
 }
