@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Notino.Homework
+namespace Notino.Homework.FormatConvertors
 {
     public enum Format
     {
@@ -8,7 +8,7 @@ namespace Notino.Homework
         XML
     }
 
-    public static class ConverterFactory
+    public static class ConvertorFactory
     {
         public static IFileConvert GetConverter(Format type)
         {

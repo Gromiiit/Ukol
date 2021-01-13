@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Notino.Homework
+namespace Notino.Homework.FormatConvertors
 {
     public class XMLConverter : IFileConvert
     {

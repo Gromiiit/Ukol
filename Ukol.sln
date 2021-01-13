@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ukol", "Ukol\Ukol.csproj", "{BFC95452-22E9-4A59-A7F9-1E7EA2ABBA97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormatConvertors", "FormatConvertors\FormatConvertors.csproj", "{3D60C2D2-219F-49E4-A91F-E547013CB949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storages", "Storages\Storages.csproj", "{57BD6030-AC37-40AA-B8B9-53B39B750E6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{BFC95452-22E9-4A59-A7F9-1E7EA2ABBA97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFC95452-22E9-4A59-A7F9-1E7EA2ABBA97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFC95452-22E9-4A59-A7F9-1E7EA2ABBA97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D60C2D2-219F-49E4-A91F-E547013CB949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D60C2D2-219F-49E4-A91F-E547013CB949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D60C2D2-219F-49E4-A91F-E547013CB949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D60C2D2-219F-49E4-A91F-E547013CB949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57BD6030-AC37-40AA-B8B9-53B39B750E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57BD6030-AC37-40AA-B8B9-53B39B750E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57BD6030-AC37-40AA-B8B9-53B39B750E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57BD6030-AC37-40AA-B8B9-53B39B750E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

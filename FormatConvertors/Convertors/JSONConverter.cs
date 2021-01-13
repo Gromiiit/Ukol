@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Notino.Homework
+namespace Notino.Homework.FormatConvertors
 {
     public class JSONConverter : IFileConvert
     {

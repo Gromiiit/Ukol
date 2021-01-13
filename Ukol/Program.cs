@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Xml.Linq;
-using Newtonsoft.Json;
 using System.Runtime.Serialization;
-
+using Notino.Homework.FormatConvertors;
+using Notino.Homework.Storages;
 
 namespace Notino.Homework
 {
@@ -35,38 +35,72 @@ namespace Notino.Homework
     }
 
     class Program
-    {
+    {        
         static void Main(string[] args)
         {
-            var sourceFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Document11.xml");
-            var targetFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Document1.json");
-
-            try
-            {
-                FileStream sourceStream = File.Open(sourceFileName, FileMode.Open);
-                var reader = new StreamReader(sourceStream); // encoding of sourceFile is always represented as UTF-8 (sourceFile may be in UTF32, ANSI, etc) => possible loss of data
-                string input = reader.ReadToEnd(); // possible out of memory exception on large files
-                // streams are not closed => can cause multiple issues
-            }
-            catch (Exception ex) // general exception handling
-            {
-                throw new Exception(ex.Message);
-            }
-
-            var xdoc = XDocument.Parse(input); // input is unknown in this context (Compile-time error), possible exception on wrong format of xml file
             var doc = new Document
             {
-                Title = xdoc.Root.Element("title").Value, // possible null reference exception if element is not found
-                Text = xdoc.Root.Element("text").Value // possible null reference exception if element is not found
+                Text = "text0",
+                Title = "title0"
+            };
+            var doc1 = new Document
+            {
+                Text = "text1",
+                Title = "title1"
             };
 
-            var serializedDoc = JsonConvert.SerializeObject(doc);
+            var list = new List<Document>();
+            list.Add(doc);
+            list.Add(doc1);
 
-            var targetStream = File.Open(targetFileName, FileMode.Create, FileAccess.Write); // possible directory not found exception, unauthorize access exception, possible override of already existing file (bug or feature?)
-            var sw = new StreamWriter(targetStream);
-            sw.Write(serializedDoc);
-            // streams are not closed => can cause multiple issues
+            var targetFileNameJ = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Ttest.json");
+            var targetFileNameX = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Ttest.xml");
+            var sourceFileNameJ = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Stest.json");
+            var sourceFileNameX = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Stest.xml");
+            var sourceHttpNameJ = @"http://echo.jsontest.com/Title/two/Text/two";
+
+            var JSONConv = ConvertorFactory.GetConverter(Format.JSON);
+            var XMLConv = ConvertorFactory.GetConverter(Format.XML);
+
+            var streamR = StreamFactory.GetStream(sourceFileNameX, Location.FileSystem);
+            var streamW = StreamFactory.GetStream(targetFileNameX, Location.FileSystem, false);
+
+            //var vals = JSONConv.Deserialize<Document>(new StreamReader(streamR));
+            //foreach(var v in vals)
+            //{
+            //    Console.WriteLine(v);
+            //}
+
+            //JSONConv.Serialize<Document>(doc, new StreamWriter(streamW));
+            //string s = JSONConv.Serialize<Document>(doc);
+
+            //var vals2 = JSONConv.Deserialize<Document>(s);
+            //foreach (var v in vals)
+            //{
+            //    Console.WriteLine("!" + v);
+            //}
+
+            var vals = XMLConv.Deserialize<Document>(new StreamReader(streamR));
+            foreach(var v in vals)
+            {
+                Console.WriteLine(v);
+            }
+            
+            XMLConv.Serialize<Document>(list, new StreamWriter(streamW));
+            var serialized = XMLConv.Serialize<Document>(list);
+            var obj = XMLConv.Serialize<Document>(doc);
+            Console.WriteLine(obj);
+
+            var des = XMLConv.Deserialize<Document>(obj);
+            foreach(var d in des)
+            {
+                Console.WriteLine(d);
+            }
+            var desList = XMLConv.Deserialize<Document>(serialized);
+            foreach (var d in desList)
+            {
+                Console.WriteLine(d);
+            }
         }
     }
-}
 }

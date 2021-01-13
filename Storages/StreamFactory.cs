@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 
-namespace Notino.Homework
+namespace Notino.Homework.Storages
 {
     public enum Location
     {
@@ -13,7 +13,7 @@ namespace Notino.Homework
         Cloud
     }
 
-    static class StreamFactory
+    public static class StreamFactory
     {
         public static Stream GetStream(string path, Location type, bool read = true)
         {
