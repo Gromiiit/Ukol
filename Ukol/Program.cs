@@ -1,23 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Xml.Linq;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
+
 
 namespace Notino.Homework
 {
-    public class Document
+    [Serializable]
+    public class Document : ISerializable
     {
         public string Title { get; set; }
         public string Text { get; set; }
+
+        public Document()
+        {
+
+        }
+        public Document(SerializationInfo info, StreamingContext context)
+        {
+            Title = (string)info.GetValue("title", typeof(string));
+            Text = (string)info.GetValue("text", typeof(string));
+        }
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("title", Title, typeof(string));
+            info.AddValue("text", Text, typeof(string));
+        }
+
+        public override string ToString()
+        {
+            return $"{Title}: {Text}";
+        }
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            var sourceFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Document1.xml");
+            var sourceFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Document11.xml");
             var targetFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Document1.json");
 
             try
@@ -47,4 +68,5 @@ namespace Notino.Homework
             // streams are not closed => can cause multiple issues
         }
     }
+}
 }
