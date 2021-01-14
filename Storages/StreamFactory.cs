@@ -42,11 +42,6 @@ namespace Notino.Homework.Storages
                         else
                             readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
 
-                        //string data = readStream.ReadToEnd();
-                        //Console.WriteLine(data);
-
-                        //response.Close();
-                        //readStream.Close();
                         if (read)
                             return receiveStream;
                         else
