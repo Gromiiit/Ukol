@@ -82,7 +82,7 @@ namespace Notino.Homework.FormatConvertors
             }
             if (!(source is ISerializable) && !(source is IEnumerable<ISerializable>))
             {
-                throw new SerializationException("Object is not serializable");
+                throw new SerializationException("Parameter is not serializable");
             }
 
             XmlSerializer serializer = new XmlSerializer(source.GetType());
@@ -91,6 +91,14 @@ namespace Notino.Homework.FormatConvertors
                 serializer.Serialize(textWriter, source);
                 return textWriter.ToString();
             }
+
+            //XmlSerializer serializer = new XmlSerializer(source.GetType());
+            //using (MemoryStream stream = new MemoryStream())
+            //using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+            //{
+            //    serializer.Serialize(writer, source);
+            //    return Encoding.UTF8.GetString(stream.ToArray());
+            //}
         }
 
         public void Serialize<TModel>(object source, StreamWriter writer) where TModel : ISerializable
