@@ -39,7 +39,7 @@ namespace Notino.Homework.FormatConvertors
                 {
                     des = serializerObject.Deserialize(xmlReader);
                 }
-                else if
+                else
                 {
                     throw new Exception($"Source cannot be deserialized to provided type {typeof(TModel)}");
                 }
@@ -80,7 +80,7 @@ namespace Notino.Homework.FormatConvertors
             {
                 throw new ArgumentNullException(nameof(source));
             }
-            if (source is ISerializable)
+            if (!(source is ISerializable) && !(source is IEnumerable<ISerializable>))
             {
                 throw new SerializationException("Object is not serializable");
             }
